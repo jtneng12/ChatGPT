@@ -1,0 +1,29 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Install deps",
+      "type": "shell",
+      "command": "python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt && python -m playwright install",
+      "problemMatcher": []
+    },
+    {
+      "label": "Fetch IPA",
+      "type": "shell",
+      "command": "${command:python.interpreterPath} -m shanghainese_audio_dictionary.fetch_ipa --input data/sentences.txt --cache data/ipa_cache.json --output data/sentences_with_ipa.json",
+      "problemMatcher": []
+    },
+    {
+      "label": "Generate Audio",
+      "type": "shell",
+      "command": "${command:python.interpreterPath} -m shanghainese_audio_dictionary.ipa_reader --input data/sentences_with_ipa.json --output-dir outputs --headed",
+      "problemMatcher": []
+    },
+    {
+      "label": "Run Pipeline",
+      "type": "shell",
+      "command": "${command:python.interpreterPath} -m shanghainese_audio_dictionary.pipeline --sentences data/sentences.txt --cache data/ipa_cache.json --output-dir outputs --concat-list",
+      "problemMatcher": []
+    }
+  ]
+}
