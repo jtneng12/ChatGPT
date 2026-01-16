@@ -1,0 +1,50 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Fetch IPA (sentences.txt)",
+      "type": "python",
+      "request": "launch",
+      "module": "shanghainese_audio_dictionary.fetch_ipa",
+      "args": [
+        "--input",
+        "${workspaceFolder}/data/sentences.txt",
+        "--cache",
+        "${workspaceFolder}/data/ipa_cache.json",
+        "--output",
+        "${workspaceFolder}/data/sentences_with_ipa.json"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Generate Audio (IPA Reader)",
+      "type": "python",
+      "request": "launch",
+      "module": "shanghainese_audio_dictionary.ipa_reader",
+      "args": [
+        "--input",
+        "${workspaceFolder}/data/sentences_with_ipa.json",
+        "--output-dir",
+        "${workspaceFolder}/outputs",
+        "--headed"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Run Pipeline (end-to-end)",
+      "type": "python",
+      "request": "launch",
+      "module": "shanghainese_audio_dictionary.pipeline",
+      "args": [
+        "--sentences",
+        "${workspaceFolder}/data/sentences.txt",
+        "--cache",
+        "${workspaceFolder}/data/ipa_cache.json",
+        "--output-dir",
+        "${workspaceFolder}/outputs",
+        "--concat-list"
+      ],
+      "console": "integratedTerminal"
+    }
+  ]
+}
